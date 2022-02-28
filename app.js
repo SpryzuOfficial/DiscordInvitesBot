@@ -5,6 +5,7 @@ require('dotenv').config();
 const {Client, Intents, Collection} = require('discord.js');
 
 const createSlash = require('./slashcommands');
+const keepAlive = require('./server');
 
 const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_PRESENCES]});
 
@@ -42,5 +43,9 @@ client.on('interactionCreate', async(interaction) =>
     }
 });
 
+if(process.env.PRODUCTION == 1)
+{
+    keepAlive
+}
 
 client.login(process.env.TOKEN);
